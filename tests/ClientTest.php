@@ -26,5 +26,30 @@
           //Assert
           $this->assertEquals($name, $result);
       }
+
+      function testSave()
+      {
+          //Arrange
+          $name = "Nathan";
+          $stylist_id = 1;
+          $test_client = new Client($name, $stylist_id);
+          //Act
+          $executed = $test_client->save();
+          // Assert
+          $this->assertTrue($executed, "Client not successfully saved to database");
+      }
+
+      function testGetId()
+      {
+          //Arrange
+          $name = "Nathan";
+          $stylist_id = 1;
+          $test_client = new Client($name, $stylist_id);
+          $test_client->save();
+          //Act
+          $result = $test_client->getId();
+          //Assert
+          $this->assertEquals(true, is_numeric($result));
+      }
     }
 ?>
