@@ -1,8 +1,8 @@
 <?php
     class Stylist
     {
+      private $name;
         private $id;
-        private $name;
 
         function __construct($name, $id = null)
         {
@@ -34,6 +34,24 @@
             } else {
                  return false;
             }
+        }
+
+        static function getAll()
+        {
+            $returned_stylists = $GLOBALS['DB']->query("SELECT * FROM stylists;");
+            $stylists = array();
+            foreach($returned_stylists as $stylist) {
+                $name = $stylist['name'];
+                $id = $stylist['id'];
+                $new_stylist = new Stylist($name, $id);
+                array_push($stylists, $new_stylist);
+            }
+            return $stylists;
+        }
+
+        static function deleteAll()
+        {
+          $GLOBALS['DB']->exec("DELETE FROM stylists;");
         }
     }
 ?>
