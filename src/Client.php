@@ -27,7 +27,7 @@
             $this->stylist_id = $new_stylist_id;
         }
 
-        function getStylisdId()
+        function getStylistId()
         {
             return $this->stylist_id;
         }
@@ -35,11 +35,6 @@
         function getID()
         {
             return $this->id;
-        }
-
-        function getCategoryId()
-        {
-            return $this->category_id;
         }
 
         function save()
