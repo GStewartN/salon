@@ -13,8 +13,18 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
-    class StylistTest extends PHPUnit_Framework_TestCase
+    class ClientTest extends PHPUnit_Framework_TestCase
     {
-
+      function testGetName()
+      {
+          //Arrange
+          $name = "Nathan";
+          $stylist_id = 1;
+          $test_client = new Client($name, $stylist_id);
+          //Act
+          $result = $test_client->getName();
+          //Assert
+          $this->assertEquals($name, $result);
+      }
     }
 ?>

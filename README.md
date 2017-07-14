@@ -7,3 +7,5 @@
 6. copy hair_salon to hair_salon_test within phpmyadmin
 7. USE hair_salon_test
 8. SELECT * FROM stylists
+9. USE hair_salon
+10. CREATE TABLE clients (name VARCHAR (255), stylist_id INT, id serial PRIMARY KEY)

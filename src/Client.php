@@ -5,7 +5,7 @@
         private $stylist_id;
         private $id;
 
-        function __construct($name, $stylist_id, $id)
+        function __construct($name, $stylist_id, $id = null)
         {
             $this->name = $name;
             $this->stylist_id = $stylist_id;
