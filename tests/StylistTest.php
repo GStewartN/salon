@@ -77,13 +77,26 @@
             $test_stylist->save();
             $test_stylist_2 = new Stylist($name_2);
             $test_stylist_2->save();
-
             //Act
             Stylist::deleteAll();
             $result = Stylist::getAll();
-
             //Assert
             $this->assertEquals([], $result);
+        }
+
+        function testFind()
+        {
+            //Arrange
+            $name = "Nathan";
+            $name_2 = "Gabriel";
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $test_stylist_2 = new Stylist($name_2);
+            $test_stylist_2->save();
+            //Act
+            $result = Stylist::find($test_stylist->getId());
+            //Assert
+            $this->assertEquals($test_stylist, $result);
         }
     }
 ?>
