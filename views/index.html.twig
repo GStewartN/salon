@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hacks Hair Hole</title>
+  </head>
+  <body>
+    <h1>Welcome to Hacks!</h1>
+
+    <p>Add a new stylist:</p>
+
+    <form action="/stylists" method="post">
+      <label for="name">Stylist Name</label>
+      <input id="name" name="name" type="text">
+
+      <button type="submit">Add Stylist</button>
+    </form>
+
+    {% if stylists is not empty %}
+      <p>Here are your stylists</p>
+      <ul>
+        {% for stylist in stylists %}
+          <li><a href="/stylists/{{ stylist.getId }}">{{ stylist.getName }}</a></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There are no stylists yet.</p>
+    {% endif %}
+  </body>
+</html>
