@@ -98,5 +98,18 @@
             //Assert
             $this->assertEquals($test_stylist, $result);
         }
+
+        function testUpdate()
+        {
+            //Arrange
+            $name = "Nathan";
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $new_name = "Gabriel";
+            //Act
+            $test_stylist->update($new_name);
+            //Assert
+            $this->assertEquals("Gabriel", $test_stylist->getName());
+        }
     }
 ?>
