@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hacks Hair Hole</title>
+  </head>
+  <body>
+    <h1>Clients</h1>
+
+      {% if clients is not empty %}
+        <p>Here are your clients:</p>
+        <ul>
+            {% for client in clients %}
+                <li>{{ client.getName }}</li>
+            {% endfor %}
+        </ul>
+      {% endif %}
+
+      <form action='/clients' name="clientele" method='post'>
+        <label for='name'>Client Name</label>
+        <input id='name' name='name' type='text' required>
+
+        <button name="clientele" type='submit'>Add client</button>
+      </form>
+      <form action='/delete_clients' name="clients_delete" method='post'>
+        <button name="clients_delete" type='submit'>Clear</button>
+      </form>
+
+      <p><a href='/'>Home</a></p>
+  </body>
+</html>

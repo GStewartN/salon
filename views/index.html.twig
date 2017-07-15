@@ -8,11 +8,11 @@
 
     <p>Add a new stylist:</p>
 
-    <form action="/stylists" method="post">
+    <form action="/stylists" name="add_stylist" method="post">
       <label for="name">Stylist Name</label>
       <input id="name" name="name" type="text" required>
 
-      <button type="submit">Add Stylist</button>
+      <button name="add_stylist" type="submit">Add Stylist</button>
     </form>
 
     {% if stylists is not empty %}

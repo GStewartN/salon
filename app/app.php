@@ -2,6 +2,7 @@
     date_default_timezone_set('America/Los_Angeles');
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Stylist.php";
+    require_once __DIR__."/../src/Client.php";
 
     $app = new Silex\Application();
 
@@ -21,13 +22,26 @@
         return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
     });
 
+    $app->get("/clients", function() use ($app) {
+        return $app['twig']->render('clients.html.twig', array('clients' => Client::getAll()));
+    });
+
+    $app->post("/clients", function() use ($app) {
+        $name = $_POST['name'];
+        $stylist_id = $_POST['stylist_id'];
+        $client = new Client($name, $stylist_id, $id = null);
+        $client->save();
+        $stylist = Stylist::find($stylist_id);
+        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
+  });
+
     $app->get("/stylists", function() use ($app) {
         return $app['twig']->render('stylists.html.twig', array('stylists' => Stylist::getAll()));
     });
 
     $app->get("/stylists/{id}", function($id) use ($app) {
-      $stylist = Stylist::find($id);
-      return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist));
+        $stylist = Stylist::find($id);
+        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'stylists' => $stylist->getClients()));
     });
 
     $app->post("/stylists", function() use ($app) {
@@ -45,7 +59,7 @@
         $name = $_POST['name'];
         $stylist = Stylist::find($id);
         $stylist->update($name);
-        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist));
+        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
     });
 
     $app->delete("/stylists/{id}", function($id) use ($app) {
@@ -55,8 +69,13 @@
     });
 
     $app->post("/delete_stylists", function() use ($app) {
-      Stylist::deleteAll();
-      return $app['twig']->render('index.html.twig');
+        Stylist::deleteAll();
+        return $app['twig']->render('index.html.twig');
+    });
+
+    $app->post("/delete_clients", function() use ($app) {
+        Client::deleteAll();
+        return $app['twig']->render('index.html.twig');
     });
 
     return $app;
