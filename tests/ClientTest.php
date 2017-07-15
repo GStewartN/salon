@@ -113,19 +113,48 @@
         // {
         //     //Arrange
         //     $name = "Nathan";
-        //     $name_2 = "Stewart";
+        //     $name_2 = "Gabriel";
         //     $stylist_id = "";
         //     $stylist_id_2 = "";
         //     $test_client = new Client($name, $stylist_id);
         //     $test_client->save();
         //     $test_client_2 = new Client($name_2, $stylist_id_2);
         //     $test_client_2->save();
-        //
         //     //Act
         //     $result = Client::find($test_client->getId());
-        //
         //     //Assert
         //     $this->assertEquals($test_client, $result);
         // }
+
+        function testUpdate()
+        {
+            //Arrange
+            $name = "Nathan";
+            $stylist_id = "";
+            $test_client = new Client($name, $stylist_id);
+            $test_client->save();
+            $new_name = "Gabriel";
+            //Act
+            $test_client->update($new_name);
+            //Assert
+            $this->assertEquals("Gabriel", $test_client->getName());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $name = "Nathan";
+            $name_2 = "Gabriel";
+            $stylist_id = "";
+            $stylist_id_2 = "";
+            $test_client = new Client($name, $stylist_id);
+            $test_client->save();
+            $test_client_2 = new Client($name_2, $stylist_id_2);
+            $test_client_2->save();
+            //Act
+            $test_client->delete();
+            //Assert
+            $this->assertEquals([$test_client_2], Client::getAll());
+        }
     }
 ?>
