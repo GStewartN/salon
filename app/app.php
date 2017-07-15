@@ -32,7 +32,7 @@
         $client = new Client($name, $stylist_id, $id = null);
         $client->save();
         $stylist = Stylist::find($stylist_id);
-        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
+        return $app['twig']->render('clients.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
   });
 
     $app->get("/stylists", function() use ($app) {
@@ -41,7 +41,7 @@
 
     $app->get("/stylists/{id}", function($id) use ($app) {
         $stylist = Stylist::find($id);
-        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'stylists' => $stylist->getClients()));
+        return $app['twig']->render('stylist.html.twig', array('stylist' => $stylist, 'clients' => $stylist->getClients()));
     });
 
     $app->post("/stylists", function() use ($app) {

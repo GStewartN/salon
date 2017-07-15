@@ -22,11 +22,6 @@
             return $this->name;
         }
 
-        function setStylisdId($new_stylist_id)
-        {
-            $this->stylist_id = $new_stylist_id;
-        }
-
         function getStylistId()
         {
             return $this->stylist_id;
