@@ -39,7 +39,7 @@
 
         function save()
         {
-            $executed = $GLOBALS['DB']->exec("INSERT INTO clients (name) VALUES ('{$this->getName()}');");
+            $executed = $GLOBALS['DB']->exec("INSERT INTO clients (name, stylist_id) VALUES ('{$this->getName()}', '{$this->getStylistId()}' );");
             if ($executed) {
                  $this->id= $GLOBALS['DB']->lastInsertId();
                  return true;
@@ -55,8 +55,8 @@
             foreach($returned_clients as $client) {
                 $client_name = $client['name'];
                 $stylist_id = $client['stylist_id'];
-                $id = $client['id'];
-                $new_client = new Client($client_name, $stylist_id, $id);
+                $client_id = $client['id'];
+                $new_client = new Client($client_name, $stylist_id, $client_id);
                 array_push($clients, $new_client);
             }
             return $clients;
@@ -67,21 +67,21 @@
             $GLOBALS['DB']->exec("DELETE FROM clients;");
         }
 
-        // static function find($search_id)
-        // {
-        //     $returned_clients = $GLOBALS['DB']->prepare("SELECT * FROM clients WHERE id = :id");
-        //     $returned_clients->bindParam(':id', $search_id, PDO::PARAM_STR);
-        //     $returned_clients->execute();
-        //     foreach($returned_clients as $client) {
-        //         $client_name = $client['name'];
-        //         $stylist_id = $client['stylist_id'];
-        //         $id = $client['id'];
-        //         if ($id == $search_id) {
-        //             $found_client = new Stylist($client_name, $stylist_id, $id);
-        //         }
-        //     }
-        //     return $found_client;
-        // }
+        static function find($search_id)
+        {
+            $returned_clients = $GLOBALS['DB']->prepare("SELECT * FROM clients WHERE id = :id;");
+            $returned_clients->bindParam(':id', $search_id, PDO::PARAM_STR);
+            $returned_clients->execute();
+            foreach ($returned_clients as $client) {
+                $client_name = $client['name'];
+                $stylist_id = $client['stylist_id'];
+                $client_id = $client['id'];
+                if ($client_id == $search_id) {
+                    $found_client = new Client($client_name, $stylist_id, $client_id);
+                }
+            }
+            return $found_client;
+        }
 
         function update($new_name)
         {
