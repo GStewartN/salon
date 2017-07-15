@@ -47,5 +47,41 @@
                  return false;
             }
         }
+
+        static function getAll()
+        {
+            $returned_clients = $GLOBALS['DB']->query("SELECT * FROM clients;");
+            $clients = array();
+            foreach($returned_clients as $client) {
+                $client_name = $client['name'];
+                $stylist_id = $client['stylist_id'];
+                $id = $client['id'];
+                $new_client = new Client($client_name, $stylist_id, $id);
+                array_push($clients, $new_client);
+            }
+            return $clients;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM clients;");
+        }
+
+        // static function find($search_id)
+        // {
+        //     $found_client = null;
+        //     $returned_clients = $GLOBALS['DB']->prepare("SELECT * FROM clients WHERE id = :id");
+        //     $returned_clients->bindParam(':id', $search_id, PDO::PARAM_STR);
+        //     $returned_clients->execute();
+        //     foreach($returned_clients as $client) {
+        //         $client_name = $client['name'];
+        //         $stylist_id = $client['stylist_id'];
+        //         $id = $client['id'];
+        //         if ($id == $search_id) {
+        //             $found_client = new Stylist($client_name, $stylist_id, $id);
+        //         }
+        //     }
+        //     return $found_client;
+        // }
     }
 ?>
