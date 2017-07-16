@@ -7,10 +7,10 @@
     <h1>{{ stylist.getName }}</h1>
 
     {% if clients is not empty %}
-      <p>Here are the clients:</p>
+      <p>Here are the clients:</br>(click name to edit)</p>
       <ul>
         {% for client in clients %}
-          <li>{{ client.getName }}</li>
+          <li><a href='/clients/{{ client.getId }}/edit'>{{ client.getName }}</a></li>
         {% endfor %}
       </ul>
     {% endif %}
