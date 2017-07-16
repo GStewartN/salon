@@ -22,10 +22,6 @@
         return $app['twig']->render('index.html.twig', array('stylists' => Stylist::getAll()));
     });
 
-    $app->get("/clients", function() use ($app) {
-        return $app['twig']->render('clients.html.twig', array('clients' => Client::getAll()));
-    });
-
     $app->post("/clients", function() use ($app) {
         $name = $_POST['name'];
         $stylist_id = $_POST['stylist_id'];
